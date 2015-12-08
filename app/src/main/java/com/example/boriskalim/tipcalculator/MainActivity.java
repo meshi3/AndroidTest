@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -89,17 +91,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sortByPrice(View v){
-        for (int c = 0; c < ( namesAndPrices.size() - 1 ); c++) {
-            for (int d = 0; d < namesAndPrices.size() - c - 1; d++) {
-                if (Double.parseDouble(namesAndPrices.get(d)[0]) > Double.parseDouble(namesAndPrices.get(d + 1)[0])) /* For descending order use < */
-                {
-                    String[] swap       = namesAndPrices.get(d);
-                    namesAndPrices.set(d, namesAndPrices.get(d + 1));
-                    namesAndPrices.set(d + 1, swap);
-                }
+        Collections.sort(namesAndPrices, new Comparator<String[]>() {
+
+            int result;
+            public int compare(String[] s1, String[] s2) {
+               Double d1 = Double.parseDouble(s1[0]);
+               Double d2 = Double.parseDouble(s2[0]);
+
+                if(d1.equals(d2)) result = -1;
+                if(d1 < d2) result = -1;
+                if(d1 > d2) result = 0;
+
+                return result;
             }
-        }
-        listView.setAdapter(mAdapter);
+
+        });
+
+        mAdapter.notifyDataSetChanged();
     }
 
     public void addToList(View v){
