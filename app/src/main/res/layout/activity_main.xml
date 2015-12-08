@@ -44,6 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
+            android:onClick="addToList"
             android:text="add to list"/>
 
     </LinearLayout>
@@ -54,7 +55,8 @@
         android:id="@+id/button1"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:text="sort list by price"/>
+        android:text="sort list by price"
+        android:onClick="sortByPrice"/>
 
     <RadioGroup
         android:id="@+id/tip_radio"
@@ -95,6 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Duplicate Amounts"
+        android:onClick="showDuplicateAmount"
         android:id="@+id/button" />
 
     <TextView

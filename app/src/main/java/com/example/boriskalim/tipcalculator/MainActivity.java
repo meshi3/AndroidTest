@@ -20,15 +20,20 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String[]> namesAndPrices = new ArrayList<>();
     private ListView listView;
     private MyAdapter mAdapter;
+    private EditText input1;
+    private EditText input2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView = (ListView) findViewById(R.id.ll);
-        final EditText input1 =  (EditText) findViewById(R.id.bill);
-        final EditText input2 =  (EditText) findViewById(R.id.name);
 
+        initUI();
+        setupListView();
+
+    }
+
+    private void setupListView() {
         mAdapter = new MyAdapter(namesAndPrices);
 
         View header = getLayoutInflater().inflate(R.layout.list_item, null);
@@ -36,69 +41,12 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)header.findViewById(R.id.ammount)).setText(R.string.ammount);
         listView.addHeaderView(header);
         listView.setAdapter(mAdapter);
+    }
 
-        final MainActivity that = this;
-        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int c = 0; c < ( namesAndPrices.size() - 1 ); c++) {
-                    for (int d = 0; d < namesAndPrices.size() - c - 1; d++) {
-                        if (Integer.parseInt(namesAndPrices.get(d)[0]) > Integer.parseInt(namesAndPrices.get(d + 1)[0])) /* For descending order use < */
-                        {
-                            String[] swap       = namesAndPrices.get(d);
-                            namesAndPrices.set(d, namesAndPrices.get(d + 1));
-                            namesAndPrices.set(d + 1, swap);
-                        }
-                    }
-                }
-                listView.setAdapter(mAdapter);
-            }
-        });
-
-        findViewById(R.id.addToList).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String b = input1.getText().toString();
-                String n = input2.getText().toString();
-
-                if (b.matches("")) {
-                    Toast.makeText(that, "You did not enter a bill amount", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (b.matches("")) {
-                    Toast.makeText(that, "You did not enter a bill amount", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                String[] str = new String[2];
-                str[0]  = b;
-                str[1] = n;
-                namesAndPrices.add(str);
-                listView.setAdapter(mAdapter);
-
-            }
-        });
-
-
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                ArrayList<Integer>result = new ArrayList<Integer>();
-
-                for (int a = 0; a < namesAndPrices.size(); a++){
-                    for (int b = a; b < namesAndPrices.size(); b++){
-                        if (a != b && Integer.parseInt(namesAndPrices.get(a)[0]) == Integer.parseInt(namesAndPrices.get(b)[0])){
-                            result.add(Integer.parseInt(namesAndPrices.get(a)[0]));
-                            break;
-                        }
-                    }
-                }
-
-                Toast.makeText(that, result.toString(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+    private void initUI() {
+        listView = (ListView) findViewById(R.id.ll);
+        input1 =  (EditText) findViewById(R.id.bill);
+        input2 =  (EditText) findViewById(R.id.name);
     }
 
 
@@ -117,13 +65,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void calculateTip(View view){
-
+    public void calculateTip(View view) {
         RadioButton low = (RadioButton) findViewById(R.id.tip_radio_low);
         RadioButton mid = (RadioButton) findViewById(R.id.tip_radio_mid);
 
         String tipOutput = new String("");
-        for (int i = 0; i < namesAndPrices.size(); i++){
+        for (int i = 0; i < namesAndPrices.size(); i++) {
             float bill = Float.parseFloat(namesAndPrices.get(i)[0]);
             float tip;
             if (low.isChecked())
@@ -132,10 +79,62 @@ public class MainActivity extends AppCompatActivity {
                 tip = bill * 15 / 100;
             else
                 tip = bill * 18 / 100;
-            tipOutput += namesAndPrices.get(i)[1] + " need to pay " +tip +"$,\n";
+            tipOutput += namesAndPrices.get(i)[1] + " need to pay " + tip + "$,\n";
         }
 
         TextView tipView = (TextView) findViewById(R.id.display_tip);
         tipView.setText(tipOutput);
+    }
+
+    public void sortByPrice(View v){
+        for (int c = 0; c < ( namesAndPrices.size() - 1 ); c++) {
+            for (int d = 0; d < namesAndPrices.size() - c - 1; d++) {
+                if (Integer.parseInt(namesAndPrices.get(d)[0]) > Integer.parseInt(namesAndPrices.get(d + 1)[0])) /* For descending order use < */
+                {
+                    String[] swap       = namesAndPrices.get(d);
+                    namesAndPrices.set(d, namesAndPrices.get(d + 1));
+                    namesAndPrices.set(d + 1, swap);
+                }
+            }
+        }
+        listView.setAdapter(mAdapter);
+    }
+
+    public void addToList(View v){
+        String b = input1.getText().toString();
+        String n = input2.getText().toString();
+
+        if (b.matches("")) {
+            Toast.makeText(this, "You did not enter a bill amount", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (b.matches("")) {
+            Toast.makeText(this, "You did not enter a bill amount", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] str = new String[2];
+        str[0]  = b;
+        str[1] = n;
+        namesAndPrices.add(str);
+        listView.setAdapter(mAdapter);
+
+    }
+
+    public void showDuplicateAmount(View v){
+        ArrayList<Integer>result = new ArrayList<Integer>();
+
+        for (int a = 0; a < namesAndPrices.size(); a++){
+            for (int b = a; b < namesAndPrices.size(); b++){
+                if (a != b && Integer.parseInt(namesAndPrices.get(a)[0]) == Integer.parseInt(namesAndPrices.get(b)[0])){
+                    result.add(Integer.parseInt(namesAndPrices.get(a)[0]));
+                    break;
+                }
+            }
+        }
+
+        Toast.makeText(this, result.toString(),
+                Toast.LENGTH_LONG).show();
     }
 }
