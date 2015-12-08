@@ -1,15 +1,11 @@
 package com.example.boriskalim.tipcalculator;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -21,8 +17,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public ArrayList<String[]> namesAndPrices = new ArrayList<>();
+    private ArrayList<String[]> namesAndPrices = new ArrayList<>();
     private ListView listView;
+    private MyAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +29,14 @@ public class MainActivity extends AppCompatActivity {
         final EditText input1 =  (EditText) findViewById(R.id.bill);
         final EditText input2 =  (EditText) findViewById(R.id.name);
 
-        final myAdapter adapter = new myAdapter();
-        listView.setAdapter(adapter);
+        mAdapter = new MyAdapter(namesAndPrices);
+
+        View header = getLayoutInflater().inflate(R.layout.list_item, null);
+        ((TextView)header.findViewById(R.id.name)).setText(R.string.name);
+        ((TextView)header.findViewById(R.id.ammount)).setText(R.string.ammount);
+        listView.addHeaderView(header);
+        listView.setAdapter(mAdapter);
+
         final MainActivity that = this;
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-                listView.setAdapter(adapter);
+                listView.setAdapter(mAdapter);
             }
         });
 
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 str[0]  = b;
                 str[1] = n;
                 namesAndPrices.add(str);
-                listView.setAdapter(adapter);
+                listView.setAdapter(mAdapter);
 
             }
         });
@@ -96,42 +99,6 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public class myAdapter extends BaseAdapter{
-
-        @Override
-        public int getCount() {
-            return namesAndPrices.size() + 1;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if(position == 0){
-                LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.list_item, null);
-                ((TextView) convertView.findViewById(R.id.name)).setText("Name");
-                ((TextView) convertView.findViewById(R.id.ammount)).setText("Amuont");
-                return convertView;
-            } else {
-                LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.list_item, null);
-                ((TextView) convertView.findViewById(R.id.name)).setText(namesAndPrices.get(position - 1)[1]);
-                ((TextView) convertView.findViewById(R.id.ammount)).setText(namesAndPrices.get(position - 1)[0]);
-                return convertView;
-            }
-
-        }
     }
 
 
