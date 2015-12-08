@@ -55,7 +55,7 @@
         android:id="@+id/button1"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:text="sort list by price"
+        android:text="@string/sort_list"
         android:onClick="sortByPrice"/>
 
     <RadioGroup
@@ -96,7 +96,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Duplicate Amounts"
+        android:text="@string/duplicate_amount"
         android:onClick="showDuplicateAmount"
         android:id="@+id/button" />
 
