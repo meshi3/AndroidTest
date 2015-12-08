@@ -106,22 +106,18 @@ public class MainActivity extends AppCompatActivity {
         String b = input1.getText().toString();
         String n = input2.getText().toString();
 
-        if (b.matches("")) {
-            Toast.makeText(this, "You did not enter a bill amount", Toast.LENGTH_SHORT).show();
+        if (n.isEmpty()) {
+            Toast.makeText(this, R.string.error_empty_name, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (b.matches("")) {
-            Toast.makeText(this, "You did not enter a bill amount", Toast.LENGTH_SHORT).show();
+        if (b.isEmpty()) {
+            Toast.makeText(this, R.string.error_empty_amount, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String[] str = new String[2];
-        str[0]  = b;
-        str[1] = n;
-        namesAndPrices.add(str);
-        listView.setAdapter(mAdapter);
-
+        namesAndPrices.add(new String[]{b, n});
+        mAdapter.notifyDataSetChanged();
     }
 
     public void showDuplicateAmount(View v){

@@ -14,5 +14,7 @@
     <string name="ammount">Amount</string>
     <string name="duplicate_amount">Show Duplicate Amounts</string>
     <string name="sort_list">sort list by price</string>
+    <string name="error_empty_amount">You did not enter a bill amount</string>
+    <string name="error_empty_name">You did not enter a name</string>
 
 </resources>
