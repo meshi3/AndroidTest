@@ -9,7 +9,7 @@
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="3"
         android:background="@android:color/darker_gray">
 
     </ListView>
@@ -17,7 +17,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,12 +30,18 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lines="1"
+                android:singleLine="true"
                 android:hint="@string/name_hint" />
 
             <EditText
                 android:id="@+id/bill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="number"
+                android:lines="1"
+                android:singleLine="true"
                 android:hint="@string/bill_hint" />
 
         </LinearLayout>
@@ -42,25 +49,27 @@
         <Button
             android:id="@+id/addToList"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:onClick="addToList"
             android:text="add to list"/>
 
     </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/button1"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:text="sort list by price"/>
+        android:text="@string/sort_list"
+        android:onClick="sortByPrice"/>
 
     <RadioGroup
         android:id="@+id/tip_radio"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bill">
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/tip_radio_low"
@@ -86,24 +95,27 @@
         android:id="@+id/calculate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tip_radio"
         android:onClick="calculateTip"
         android:text="@string/calculate" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Duplicate Amounts"
+        android:text="@string/duplicate_amount"
+        android:onClick="showDuplicateAmount"
         android:id="@+id/button" />
 
-    <TextView
-        android:id="@+id/display_tip"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/calculate_button"
-        android:gravity="center"
-        android:paddingTop="30dp"
-        android:textSize="20sp" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+        <TextView
+            android:id="@+id/display_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:textSize="20sp" />
+    </ScrollView>
 </LinearLayout>

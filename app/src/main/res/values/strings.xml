@@ -10,5 +10,11 @@
     <string name="tip_low">13%</string>
     <string name="tip_mid">15%</string>
     <string name="tip_high">18%</string>
+    <string name="name">Name</string>
+    <string name="ammount">Amount</string>
+    <string name="duplicate_amount">Show Duplicate Amounts</string>
+    <string name="sort_list">sort list by price</string>
+    <string name="error_empty_amount">You did not enter a bill amount or bill Invalid </string>
+    <string name="error_empty_name">You did not enter a name</string>
 
 </resources>
