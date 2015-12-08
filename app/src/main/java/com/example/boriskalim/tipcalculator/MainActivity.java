@@ -111,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(namesAndPrices, new Comparator<String[]>() {
 
             int result;
+
             public int compare(String[] s1, String[] s2) {
-               Double d1 = Double.parseDouble(s1[0]);
-               Double d2 = Double.parseDouble(s2[0]);
+                Float d1 = Float.parseFloat(s1[0]);
+                Float d2 = Float.parseFloat(s2[0]);
 
                 if(d1.equals(d2)) result = -1;
                 if(d1 < d2) result = -1;
