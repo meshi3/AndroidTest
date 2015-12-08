@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +20,18 @@ import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final float LOW = 0.13f;
+    private static final float MID = 0.15f;
+    private static final float HIGH = 0.18f;
 
     private ArrayList<String[]> namesAndPrices = new ArrayList<>();
     private ListView listView;
     private MyAdapter mAdapter;
     private EditText input1;
     private EditText input2;
+
+    private RadioGroup radioG;
+    private TextView tipView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.ll);
         input1 =  (EditText) findViewById(R.id.bill);
         input2 =  (EditText) findViewById(R.id.name);
+
+        radioG = (RadioGroup) findViewById(R.id.tip_radio);
+
+        tipView = (TextView) findViewById(R.id.display_tip);
     }
 
 
@@ -70,23 +80,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void calculateTip(View view) {
-        RadioButton low = (RadioButton) findViewById(R.id.tip_radio_low);
-        RadioButton mid = (RadioButton) findViewById(R.id.tip_radio_mid);
 
-        String tipOutput = new String("");
-        for (int i = 0; i < namesAndPrices.size(); i++) {
-            float bill = Float.parseFloat(namesAndPrices.get(i)[0]);
-            float tip;
-            if (low.isChecked())
-                tip = bill * 13 / 100;
-            else if (mid.isChecked())
-                tip = bill * 15 / 100;
-            else
-                tip = bill * 18 / 100;
-            tipOutput += namesAndPrices.get(i)[1] + " need to pay " + tip + "$,\n";
+        float percentage = 0f;
+        float tip;
+        StringBuilder tipOutput = new StringBuilder();
+        switch (radioG.getCheckedRadioButtonId()) {
+            case R.id.tip_radio_low:
+                percentage = LOW;
+                break;
+            case R.id.tip_radio_mid:
+                percentage = MID;
+                break;
+            case R.id.tip_radio_high:
+                percentage = HIGH;
+                break;
+
+            default:
+                break;
         }
 
-        TextView tipView = (TextView) findViewById(R.id.display_tip);
+        for (String[] item: namesAndPrices) {
+            tip = Float.parseFloat(item[0])* percentage;
+            tipOutput.append(item[1]).append(" ").append("Need to pay ").append(String.format("%.2f", tip)).append("$\n");
+        }
+
         tipView.setText(tipOutput);
     }
 
