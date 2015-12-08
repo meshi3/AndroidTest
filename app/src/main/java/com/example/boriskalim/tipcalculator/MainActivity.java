@@ -137,13 +137,22 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (b.isEmpty()) {
+        if (b.isEmpty() || isInvalid(b)) {
             Toast.makeText(this, R.string.error_empty_amount, Toast.LENGTH_SHORT).show();
             return;
         }
 
         namesAndPrices.add(new String[]{b, n});
         mAdapter.notifyDataSetChanged();
+    }
+
+    private boolean isInvalid(String b) {
+        try {
+            Float.parseFloat(b);
+            return false;
+        } catch (NumberFormatException e) {
+            return true;
+        }
     }
 
     public void showDuplicateAmount(View v){
