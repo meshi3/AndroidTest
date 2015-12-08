@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -123,14 +125,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showDuplicateAmount(View v){
-        ArrayList<Double>result = new ArrayList<>();
+        Set<String> set = new HashSet<>();
+        ArrayList<String>result = new ArrayList<>();
 
-        for (int a = 0; a < namesAndPrices.size(); a++){
-            for (int b = a; b < namesAndPrices.size(); b++){
-                if (a != b && Double.parseDouble(namesAndPrices.get(a)[0]) == Double.parseDouble(namesAndPrices.get(b)[0])){
-                    result.add(Double.parseDouble(namesAndPrices.get(a)[0]));
-                    break;
-                }
+        for(String[]item : namesAndPrices){
+            if(!set.add(item[0])){
+                result.add(item[0]);
             }
         }
 
