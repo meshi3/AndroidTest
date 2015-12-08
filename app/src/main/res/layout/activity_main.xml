@@ -1,0 +1,109 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@android:color/darker_gray">
+
+    </ListView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_hint" />
+
+            <EditText
+                android:id="@+id/bill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bill_hint" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addToList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:text="add to list"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/button1"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="sort list by price"/>
+
+    <RadioGroup
+        android:id="@+id/tip_radio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bill">
+
+        <RadioButton
+            android:id="@+id/tip_radio_low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/tip_low" />
+
+        <RadioButton
+            android:id="@+id/tip_radio_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tip_mid" />
+
+        <RadioButton
+            android:id="@+id/tip_radio_high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tip_high" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/calculate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tip_radio"
+        android:onClick="calculateTip"
+        android:text="@string/calculate" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Duplicate Amounts"
+        android:id="@+id/button" />
+
+    <TextView
+        android:id="@+id/display_tip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calculate_button"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:textSize="20sp" />
+
+</LinearLayout>
