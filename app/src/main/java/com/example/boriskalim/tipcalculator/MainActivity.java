@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.list_item, null);
-                ((TextView) convertView.findViewById(R.id.name)).setText(namesAndPrices.get(position - 1)[0]);
-                ((TextView) convertView.findViewById(R.id.ammount)).setText(namesAndPrices.get(position - 1)[1]);
+                ((TextView) convertView.findViewById(R.id.name)).setText(namesAndPrices.get(position - 1)[1]);
+                ((TextView) convertView.findViewById(R.id.ammount)).setText(namesAndPrices.get(position - 1)[0]);
                 return convertView;
             }
 
