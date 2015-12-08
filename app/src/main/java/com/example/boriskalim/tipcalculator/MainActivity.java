@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public void sortByPrice(View v){
         for (int c = 0; c < ( namesAndPrices.size() - 1 ); c++) {
             for (int d = 0; d < namesAndPrices.size() - c - 1; d++) {
-                if (Integer.parseInt(namesAndPrices.get(d)[0]) > Integer.parseInt(namesAndPrices.get(d + 1)[0])) /* For descending order use < */
+                if (Double.parseDouble(namesAndPrices.get(d)[0]) > Double.parseDouble(namesAndPrices.get(d + 1)[0])) /* For descending order use < */
                 {
                     String[] swap       = namesAndPrices.get(d);
                     namesAndPrices.set(d, namesAndPrices.get(d + 1));
@@ -123,12 +123,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showDuplicateAmount(View v){
-        ArrayList<Integer>result = new ArrayList<Integer>();
+        ArrayList<Double>result = new ArrayList<>();
 
         for (int a = 0; a < namesAndPrices.size(); a++){
             for (int b = a; b < namesAndPrices.size(); b++){
-                if (a != b && Integer.parseInt(namesAndPrices.get(a)[0]) == Integer.parseInt(namesAndPrices.get(b)[0])){
-                    result.add(Integer.parseInt(namesAndPrices.get(a)[0]));
+                if (a != b && Double.parseDouble(namesAndPrices.get(a)[0]) == Double.parseDouble(namesAndPrices.get(b)[0])){
+                    result.add(Double.parseDouble(namesAndPrices.get(a)[0]));
                     break;
                 }
             }
